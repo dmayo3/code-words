@@ -6,5 +6,5 @@ int
 long
 double
 float
-String
-Object
+string
+object

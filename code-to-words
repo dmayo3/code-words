@@ -31,13 +31,18 @@ function split_words() {
 	-e 's/\([[:upper:]]\+\)\([[:upper:]][[:lower:]]\)/\1\n\2/g'
 }
 
+# Lowercase everything, so that stop words can be removed case-insensitively
+function lower_case_words() {
+	tr [:upper:] [:lower:]
+}
+
 function ignore_stop_words() {
     grep -vw "${stopword_opts[@]}" -e . -e ..
 }
 
 # Should do stemming (with Snowball, for example)
 function group_words() {
-    tr [:upper:] [:lower:] | sort
+    sort
 }
 
-extract_identifiers | split_words | ignore_stop_words | group_words
+extract_identifiers | split_words | lower_case_words | ignore_stop_words | group_words
